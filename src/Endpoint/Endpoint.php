@@ -7,7 +7,7 @@ use Kiryi\Flaryi\Client;
 abstract class Endpoint
 {
     const JSONFILEPATH = __DIR__ . '/../../asset/json/';
-    const ENDPOINT = '';
+    const APIENDPOINT = '';
 
     protected ?Client $client = null;
     protected string $type = '';
@@ -31,7 +31,7 @@ abstract class Endpoint
 
     protected function setUri(string $uri = ''): void
     {
-        $this->uri = $this::ENDPOINT . $uri;
+        $this->uri = $this::APIENDPOINT . $uri;
     }
 
     protected function setBody(string $body = ''): void

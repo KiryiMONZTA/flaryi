@@ -4,7 +4,7 @@ namespace Kiryi\Flaryi\Endpoint;
 
 class User extends Endpoint
 {
-    const ENDPOINT = 'users';
+    const APIENDPOINT = 'users';
 
     public function get(int $userId, ?array $responseFields = null): object
     {
