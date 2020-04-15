@@ -70,7 +70,8 @@ $userList = $client->call('User')->getAll([
     'email',
 ]);
 ```
-will save an object to `$userList` containing all Users of your Flarum. The User objects containg an ID (always), the requested fields *username* and *email* as well as some other information the API provides. Please keep in mind, that not everything can be filtered with an API Call, but you can use the received User list to perform more filtering and e.g. following API Calls like so:
+will save an object to `$userList` containing all Users of your Flarum. The User objects containg an ID (always), the requested fields *username* and *email* as well as some other information the API provides. Please keep in mind, that not everything can be filtered with an API Call, but you can use the received User list to perform more filtering and e.g. following API Calls like so:  
+
 *src/Controller/UserGroupController.php*
 ```php
 $user = $client->call('User')->get(5);
