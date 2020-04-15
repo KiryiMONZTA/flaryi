@@ -7,7 +7,7 @@ composer require kiryi/flaryi
 ```
 
 ## Usage
-First [initialize](#initialization) the client in one of two possible ways. Then call an [available endpoint](#available-endpoints) and perform a method associated with it. You will get the response from Flarum's API as a return and may use it in your further logic.
+First [initialize](#initialization) the client in one of two possible ways. Then call an [available Endpoint](#available-endpoints) and perform a method associated with it. You will get the response from Flarum's API as a return and may use it in your further logic.
 
 ## Constructor Definition
 
@@ -25,10 +25,10 @@ call(string $endpoint): object
 Assigns a variable to the view's data object.
 ### Parameters
 **endpoint**  
-One of the available endpoints.
+One of the available [Endpoints](#available-endpoints).
 
 ### Return Values
-Returns the endpoint you can then perform one of its associated methods.
+Returns the Endpoint you can then perform one of its associated methods.
 
 ## Initialization
 You have to provide the client at least two mandatory parameters you can must define in a custom configuration INI file or use the default one.
@@ -37,7 +37,7 @@ You have to provide the client at least two mandatory parameters you can must de
 The URL of your Flarum's API. Usually it is `{YOURFLARUMDOMAIN}/api`.
 
 **apiKey**  
-A API key from your Flarum installation. Currently you have to manually create a 40 character long random string and put it directly into your Flarum's databse *api_keys* table *key* column together with an user ID to the *user_id* column. The user ID depends on the actions you want to perform. If you want to use every possible API call, use an administrator user. If not, you can create a role in your Flarum's administration area with the prefered rights.
+A API key from your Flarum installation. Currently you have to manually create a 40 character long random string and put it directly into your Flarum's databse *api_keys* table *key* column together with an User ID to the *user_id* column. The User ID depends on the actions you want to perform. If you want to use every possible API Call, use an Administrator User. If not, you can create a role in your Flarum's administration area with the prefered rights.
 
 Wheter you use a custom or the default file, the contens have to be:
 ```ini
@@ -48,9 +48,9 @@ apiKey = {APIKEYFROMYOUFLARUMINSTALLATION}
 The default filepath is *config/flaryi.ini*. If you want to use a custom filepath, you have to provide it to the [constructor](#constructor-definition) of the client. The path is relative to your project's root directory.
 
 ## Available Endpoints
-The Flarum API provides some endpoint you can perform several actions on it. FLARYI covering only some endpoints and each endpoint only provides some available methods to perform (actions).
+The Flarum API provides some Endpoint you can perform several actions on it. FLARYI covering only some Endpoints and each Endpoint only provides some available methods to perform (actions).
 
-Currently available endpoints:
+Currently available Endpoints:
 - [Discussion](doc/discussion.md)
 - [Post](doc/post.md)
 - [User](doc/user.md)
@@ -70,7 +70,7 @@ $userList = $client->call('User')->getAll([
     'email',
 ]);
 ```
-will save an object to `$userList` containing all users of your Flarum. The user objects containg an ID (always), the requested fields *username* and *email* as well as some other information the API provides. Please keep in mind, that not everything can be filtered with an API call, but you can use the received user list to perform more filtering and e.g. following API calls like so:
+will save an object to `$userList` containing all Users of your Flarum. The User objects containg an ID (always), the requested fields *username* and *email* as well as some other information the API provides. Please keep in mind, that not everything can be filtered with an API Call, but you can use the received User list to perform more filtering and e.g. following API Calls like so:
 *src/Controller/UserGroupController.php*
 ```php
 $user = $client->call('User')->get(5);
@@ -79,13 +79,13 @@ if (
     && $user->data->relationships->groups->data[0]->id != 2
 ) {
     $client->call('User')->setGroup(5, 2);
-    echo 'User was added to group 2.';
+    echo 'User was added to Group 2.';
 } else {
-    echo 'User is already in group 2.';
+    echo 'User is already in Group 2.';
 }
 ```
 This script
-- Gets user with ID 5 through an API call
-- Checks if he has the user group with ID 2
+- Gets User with ID 5 through an API Call
+- Checks if he has the User Group with ID 2
 - If yes, nothing will be changed
-- If no, group 2 is added to the user through an API call
+- If no, Group 2 is added to the User through an API Call
