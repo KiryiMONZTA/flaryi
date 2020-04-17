@@ -47,6 +47,11 @@ abstract class Endpoint
         return file_get_contents(self::JSONFILEPATH . $className . $functionName . '.json');
     }
 
+    protected function createDataObjectJson(string $type, string $id): string
+    {
+        return sprintf(file_get_contents(self::JSONFILEPATH . 'data.json'), $type, $id);
+    }
+
     protected function setEndpointId(int $id): string
     {
         $uriPart = '';
