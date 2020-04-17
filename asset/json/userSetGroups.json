@@ -3,10 +3,7 @@
         "relationships": {
             "groups": {
                 "data": [
-                    {
-                        "type": "groups",
-                        "id": "%s"
-                    }
+                    %s
                 ]
             }
         }
