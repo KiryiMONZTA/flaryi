@@ -28,11 +28,20 @@ class User extends Endpoint
         return $this->call();
     }
 
-    public function setGroup(int $userId, int $groupId): object
+    public function setGroups(int $userId, array $groupIds): object
     {
+        $groupJson = '';
+
+        foreach ($groupIds as $groupId) {
+            $groupJson .= $this->createDataObjectJson('groups', $groupId);
+            $groupJson .= ',';
+        }
+
+        $groupJson = substr($tagsJson, 0, -1);
+
         $this->setType('PATCH');
         $this->setUri($this->setEndpointId($userId));
-        $this->setBody(sprintf($this->getJsonBody(), $groupId));
+        $this->setBody(sprintf($this->getJsonBody(), $groupJson));
 
         return $this->call();
     }
