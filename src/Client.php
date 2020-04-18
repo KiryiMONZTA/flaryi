@@ -9,8 +9,7 @@ use GuzzleHttp\Psr7\Request as GuzzleRequest;
 
 class Client
 {
-    const ROOTDIR = '/../test-project/';
-    //const ROOTDIR = '/../../../../';
+    const ROOTDIR = '/../../../../';
     const CONFIGFILE_STANDARDPATH = 'config/flaryi.ini';
     const CONFIGFILE_PARAM_URL = 'flaryi::apiUrl';
     const CONFIGFILE_PARAM_KEY = 'flaryi::apiKey';
