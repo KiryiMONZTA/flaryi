@@ -8,15 +8,16 @@ class User extends Endpoint
 
     public function get(int $userId, ?array $responseFields = null): object
     {
-        $uri = '';
-        $uri .= $this->setEndpointId($userId);
-        $uri .= $this->setResponseFields($responseFields);
-        
         $this->setType('GET');
-        $this->setUri($uri);
+        $this->setUri($this->setEndpointId($userId));
+        $this->setUri($this->setResponseFields($responseFields));
         $this->setBody();
 
-        return $this->call();
+        try {
+            return $this->call();
+        } catch (\Exception $e) {
+            throw new \Exception(sprintf($this::NOTFOUND, 'User', 'ID', $userId));
+        }
     }
 
     public function getAll(?array $responseFields = null): object
@@ -28,16 +29,18 @@ class User extends Endpoint
         return $this->call();
     }
 
-    public function setGroups(int $userId, array $groupIds): object
+    public function setGroups(int $userId, array $groupIds = null): object
     {
         $groupJson = '';
 
-        foreach ($groupIds as $groupId) {
-            $groupJson .= $this->createDataObjectJson('groups', $groupId);
-            $groupJson .= ',';
+        if ($groupIds!== null) {
+            foreach ($groupIds as $groupId) {
+                $groupJson .= $this->createDataObjectJson('groups', $groupId);
+                $groupJson .= ',';
+            }
+            
+            $groupJson = substr($groupJson, 0, -1);
         }
-
-        $groupJson = substr($tagsJson, 0, -1);
 
         $this->setType('PATCH');
         $this->setUri($this->setEndpointId($userId));

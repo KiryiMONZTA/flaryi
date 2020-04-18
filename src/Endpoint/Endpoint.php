@@ -4,8 +4,9 @@ namespace Kiryi\Flaryi\Endpoint;
 
 use Kiryi\Flaryi\Client;
 
-abstract class Endpoint
+abstract class Endpoint extends \Exception
 {
+    CONST NOTFOUND = 'FLARYI ERROR: No %s found with %s "%s"!';
     const JSONFILEPATH = __DIR__ . '/../../asset/json/';
     const APIENDPOINT = '';
 
@@ -31,7 +32,12 @@ abstract class Endpoint
 
     protected function setUri(string $uri = ''): void
     {
-        $this->uri = $this::APIENDPOINT . $uri;
+        if ($this->uri == '') {
+            $this->uri = $this::APIENDPOINT . $uri;
+        } else {
+            $this->uri = $this->uri . $uri;
+        }
+        
     }
 
     protected function setBody(string $body = ''): void
@@ -68,13 +74,38 @@ abstract class Endpoint
         $uriPart = '';
 
         if ($responseFields !== null) {
-            $uriPart .= '?fields[users]=';
+            if (strpos($this->uri, '?') === false)
+            {
+                $uriPart .= '?';
+            } else {
+                $uriPart .= '&';
+            }
+
+            $uriPart .= 'fields[' . $this::APIENDPOINT . ']=';
 
             foreach ($responseFields as $field) {
                 $uriPart .= $field . ',';
             }
             
             $uriPart = substr($uriPart, 0, -1);
+        }
+
+        return $uriPart;
+    }
+
+    protected function setFilter(?string $filter): string
+    {
+        $uriPart = '';
+
+        if ($filter !== null) {
+            if (strpos($this->uri, '?') === false)
+            {
+                $uriPart .= '?';
+            } else {
+                $uriPart .= '&';
+            }
+
+            $uriPart .= 'filter[q]=' . $filter;
         }
 
         return $uriPart;
