@@ -9,7 +9,6 @@ use GuzzleHttp\Psr7\Request as GuzzleRequest;
 
 class Client
 {
-    const ROOTDIR = '/../../../../';
     const CONFIGFILE_STANDARDPATH = 'config/flaryi.ini';
     const CONFIGFILE_PARAM_URL = 'flaryi::apiUrl';
     const CONFIGFILE_PARAM_KEY = 'flaryi::apiKey';
@@ -22,7 +21,7 @@ class Client
     public function __construct(string $filepath = null)
     {
         if ($filepath === null) {
-            $filepath = $this::ROOTDIR . $this::CONFIGFILE_STANDARDPATH;
+            $filepath = $this::CONFIGFILE_STANDARDPATH;
         }
         
         $this->inyi = new Inyi($filepath);
