@@ -76,18 +76,15 @@ will save an object to `$userList` containing all Users of your Flarum. The User
 *src/Controller/UserGroupController.php*
 ```php
 $user = $client->call('User')->get(5);
-if (
-    isset($user->data->relationships->groups->data[0]->id) === true
-    && $user->data->relationships->groups->data[0]->id != 2
-) {
-    $client->call('User')->setGroup(5, 2);
-    echo 'User was added to Group 2.';
+if (isset($user->data->relationships->groups->data[0]->id)) {
+    $client->call('User')->setGroups(5, [2, 3]);
+    echo 'User was added to Group 2 and 3.';
 } else {
-    echo 'User is already in Group 2.';
+    echo 'User is already in a Group.';
 }
 ```
 This script
 - Gets User with ID 5 through an API Call
-- Checks if he has the User Group with ID 2
+- Checks if the User has a Group
 - If yes, nothing will be changed
-- If no, Group 2 is added to the User through an API Call
+- If no, Group 2 and 3 is set to the User through a second API call
