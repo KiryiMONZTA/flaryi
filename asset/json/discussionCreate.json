@@ -1,6 +1,6 @@
 {
     "data": {
-        "type": "%s",
+        "type": "discussions",
         "attributes": {
             "title": "%s",
             "content": "%s"
