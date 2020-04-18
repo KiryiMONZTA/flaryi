@@ -54,6 +54,7 @@ Currently available Endpoints:
 - [Discussion](doc/discussion.md)
 - [Post](doc/post.md)
 - [User](doc/user.md)
+- [Tag](doc/tag.md)
 
 ## Example
 *configuration/config.ini*
