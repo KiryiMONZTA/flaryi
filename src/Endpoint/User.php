@@ -22,11 +22,29 @@ class User extends Endpoint
 
     public function getAll(?array $responseFields = null): object
     {
-        $this->setType('GET');
-        $this->setUri($this->setResponseFields($responseFields));
-        $this->setBody();
+        $responseCollection = [];
+        $pageOffset = 0;
 
-        return $this->call();
+        while ($pageOffset >= 0) {
+            $this->setType('GET');
+            $this->setUri($this->setResponseFields($responseFields));
+            $this->setUri($this->setPagination($pageOffset));
+            $this->setBody();
+    
+            $response = $this->call();
+    
+            foreach ($response->data as $data) {
+                $responseCollection[] = $data;
+            }
+                
+            if (isset($response->links->next)) {
+                $pageOffset = $pageOffset + 20;
+            } else {
+                $pageOffset = -1;
+            }
+        }
+        
+        return $responseCollection;
     }
 
     public function setGroups(int $userId, array $groupIds = null): object
