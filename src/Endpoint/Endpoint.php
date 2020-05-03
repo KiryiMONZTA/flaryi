@@ -110,4 +110,22 @@ abstract class Endpoint extends \Exception
 
         return $uriPart;
     }
+
+    protected function setPagination(?int $pageOffset): string
+    {
+        $uriPart = '';
+
+        if ($pageOffset !== null) {
+            if (strpos($this->uri, '?') === false)
+            {
+                $uriPart .= '?';
+            } else {
+                $uriPart .= '&';
+            }
+
+            $uriPart .= 'page[offset]=' . $pageOffset;
+        }
+
+        return $uriPart;
+    }
 }
