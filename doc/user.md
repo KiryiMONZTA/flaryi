@@ -29,7 +29,7 @@ Get all Users.
 Optional array containing the fields included in the response. Please keep in mind, that the Flarum API includes several other fields you are not able to filter.
 
 ### Return Values
-Returns a data object containing the requested User objects.
+Returns an array containing the requested User objects.
 
 ## setGroups
 ```php

@@ -32,7 +32,7 @@ Optional array containing the fields included in the response. Please keep in mi
 Optional search query (like in the actual Flarum frontend) to prefilter the results.
 
 ### Return Values
-Returns a data object containing the requested Post object(s).
+Returns an array containing the requested Post object(s).
 
 ## create
 ```php

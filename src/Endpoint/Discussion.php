@@ -21,7 +21,7 @@ class Discussion extends Endpoint
         }
     }
 
-    public function getAll(?array $responseFields = null, ?string $filter = null): object
+    public function getAll(?array $responseFields = null, ?string $filter = null): array
     {
         $responseCollection = [];
         $pageOffset = 0;

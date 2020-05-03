@@ -20,7 +20,7 @@ class User extends Endpoint
         }
     }
 
-    public function getAll(?array $responseFields = null): object
+    public function getAll(?array $responseFields = null): array
     {
         $responseCollection = [];
         $pageOffset = 0;
